@@ -29,26 +29,7 @@ namespace OperationFiasco
 				Rotation += 0.1f;
 			else if( key.IsKeyDown( Keys.X ) )
 				Rotation -= 0.1f;
-			/*
 
-			if( key.IsKeyDown( Keys.D ) )
-				Rotation = 0;
-			if( key.IsKeyDown( Keys.A ) )
-				Rotation = (float) Math.PI;
-			if( key.IsKeyDown( Keys.S ) )
-				Rotation = (float) Math.PI / 2.0f;
-			if( key.IsKeyDown( Keys.W ) )
-				Rotation = (float) ( Math.PI * 3f / 2f );
-
-			if( key.IsKeyDown( Keys.W ) && key.IsKeyDown( Keys.A ) )
-				Rotation = (float) ( Math.PI * 2.5 / 2.0 );
-			if( key.IsKeyDown( Keys.W ) && key.IsKeyDown( Keys.D ) )
-				Rotation = (float) ( Math.PI * 3.5 / 2.0 );
-			if( key.IsKeyDown( Keys.S ) && key.IsKeyDown( Keys.A ) )
-				Rotation = (float) ( Math.PI * 1.5 / 2.0 );
-			if( key.IsKeyDown( Keys.S ) && key.IsKeyDown( Keys.D ) )
-				Rotation = (float) ( Math.PI * 0.5 / 2.0 );
-*/
 			if( key.GetPressedKeys().Any(
 			k => k == Keys.W ||
 				k == Keys.S ||
