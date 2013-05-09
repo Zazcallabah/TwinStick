@@ -8,7 +8,7 @@ namespace OperationFiasco
 		/// </summary>
 		static void Main()
 		{
-			using( var game = new SpaceGame() )
+			using( var game = SpaceGame.Instance )
 			{
 				game.Run();
 			}

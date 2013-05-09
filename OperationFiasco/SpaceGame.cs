@@ -7,8 +7,9 @@ namespace OperationFiasco
 	public class SpaceGame : Game
 	{
 		readonly GraphicsDeviceManager _graphics;
+		static SpaceGame _instance;
 		SpriteBatch _spriteBatch;
-		Ship _ship;
+		IWorld _currentScreen;
 
 		public SpaceGame()
 		{
@@ -16,11 +17,29 @@ namespace OperationFiasco
 			Content.RootDirectory = "Content";
 		}
 
+		public static SpaceGame Instance
+		{
+			get { return _instance ?? ( _instance = new SpaceGame() ); }
+		}
+
 		protected override void LoadContent()
 		{
 			_spriteBatch = new SpriteBatch( GraphicsDevice );
-			_ship = new Ship( Content );
+			SpriteManager.Load( Content );
+			FontManager.Load( Content );
+			_currentScreen = new StartScreen();
 			EffectHandler.Instance.Load( Content, _graphics );
+		}
+
+		public void Reset()
+		{
+			World.Instance = new World();
+			_currentScreen = World.Instance;
+		}
+
+		public void End( int score )
+		{
+			_currentScreen = new EndScreen( score );
 		}
 
 		protected override void Update( GameTime gameTime )
@@ -30,12 +49,7 @@ namespace OperationFiasco
 			if( ms.RightButton == ButtonState.Pressed )
 				Exit();
 
-			if( ms.LeftButton == ButtonState.Pressed )
-			{
-				EffectHandler.Instance.Trigger( Effect.Explosion, ms.X, ms.Y );
-			}
-
-			_ship.Update( gameTime );
+			_currentScreen.Update( gameTime );
 
 			EffectHandler.Instance.Update( gameTime );
 			base.Update( gameTime );
@@ -43,10 +57,10 @@ namespace OperationFiasco
 
 		protected override void Draw( GameTime gameTime )
 		{
-			GraphicsDevice.Clear( Color.CornflowerBlue );
+			GraphicsDevice.Clear( Color.Black );
 
 			_spriteBatch.Begin();
-			_ship.Draw( _spriteBatch, gameTime );
+			_currentScreen.Draw( _spriteBatch, gameTime );
 			_spriteBatch.End();
 			EffectHandler.Instance.Draw();
 			base.Draw( gameTime );
