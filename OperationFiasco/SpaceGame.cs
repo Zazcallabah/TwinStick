@@ -44,9 +44,8 @@ namespace OperationFiasco
 
 		protected override void Update( GameTime gameTime )
 		{
-			var ms = Mouse.GetState();
 			// Allows the game to exit
-			if( ms.RightButton == ButtonState.Pressed )
+			if( Keyboard.GetState().IsKeyDown( Keys.Escape ) )
 				Exit();
 
 			_currentScreen.Update( gameTime );

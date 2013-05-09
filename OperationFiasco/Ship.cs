@@ -1,6 +1,5 @@
 ﻿
 using System;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -30,12 +29,7 @@ namespace OperationFiasco
 			else if( key.IsKeyDown( Keys.X ) )
 				Rotation -= 0.1f;
 
-			if( key.GetPressedKeys().Any(
-			k => k == Keys.W ||
-				k == Keys.S ||
-				k == Keys.A ||
-				k == Keys.D ||
-				k == Keys.Space ) )
+			if( key.IsKeyDown( Keys.Space ) )
 				Fire( time );
 		}
 

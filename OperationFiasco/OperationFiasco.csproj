@@ -117,6 +117,7 @@
     <Compile Include="Rnd.cs" />
     <Compile Include="Rock.cs" />
     <Compile Include="SpriteManager.cs" />
+    <Compile Include="StartScreen.cs" />
     <Compile Include="StraightMover.cs" />
     <Compile Include="Vector2Ext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
