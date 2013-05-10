@@ -112,7 +112,9 @@
   <ItemGroup>
     <Compile Include="Bullet.cs" />
     <Compile Include="FontManager.cs" />
+    <Compile Include="MovementPowerup.cs" />
     <Compile Include="PlayOnce.cs" />
+    <Compile Include="ScorePowerup.cs" />
     <Compile Include="SoundManager.cs" />
     <Compile Include="EffectHandler.cs" />
     <Compile Include="EndScreen.cs" />

@@ -36,7 +36,7 @@ namespace OperationFiasco
 				{
 					_bgmusic = _bg.CreateInstance();
 					_bgmusic.IsLooped = true;
-					_bgmusic.Volume = 0.5f;
+					_bgmusic.Volume = 0.3f;
 				}
 				return _bgmusic;
 			}

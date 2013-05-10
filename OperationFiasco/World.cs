@@ -8,6 +8,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace OperationFiasco
 {
+	public class MessageFlash
+	{
+		public string Message { get; set; }
+		public TimeSpan? StartMark { get; set; }
+		public TimeSpan LifeSpan { get; set; }
+		public Vector2 Position { get; set; }
+	}
+
 	public class World : IWorld
 	{
 		static World _instance;
@@ -22,6 +30,7 @@ namespace OperationFiasco
 			set { _instance = value; }
 		}
 
+		readonly List<MessageFlash> _messages;
 		readonly List<IWorldDrawable> _drawables;
 		readonly List<IWorldDrawable> _addnext;
 		TimeSpan? init;
@@ -29,6 +38,7 @@ namespace OperationFiasco
 		{
 			_drawables = new List<IWorldDrawable> { new Ship() };
 			_addnext = new List<IWorldDrawable>();
+			_messages = new List<MessageFlash>();
 			Score = 0;
 		}
 
@@ -39,10 +49,10 @@ namespace OperationFiasco
 		readonly Color[] _clr = new[] { Color.Gray, Color.Gray, Color.White, Color.Red };
 		readonly PlayOnce[] _snd = new[]
 		{ 
-			new PlayOnce(SoundManager.Beep),
-			new PlayOnce(SoundManager.Beep), 
-			new PlayOnce( SoundManager.Beep),
-			new PlayOnce( SoundManager.Bip) 
+			new PlayOnce( SoundManager.Beep ),
+			new PlayOnce( SoundManager.Beep ), 
+			new PlayOnce( SoundManager.Beep ),
+			new PlayOnce( SoundManager.Bip ) 
 		};
 
 		public void Update( GameTime time )
@@ -59,10 +69,10 @@ namespace OperationFiasco
 					var trigger = Rnd.Number( 0, 100 );
 					if( trigger < 50 )
 						EnemyHandler.AddFastRock();
-					else if( trigger < 97 )
+					else if( trigger < 95 )
 						EnemyHandler.AddSlowRock();
 					else
-						PowerupHandler.AddRotation();
+						PowerupHandler.AddPowerup( Score );
 				}
 
 				for( var i = 0; i < _drawables.Count; i++ )
@@ -118,9 +128,26 @@ namespace OperationFiasco
 				foreach( var drawable in _drawables )
 					drawable.Draw( batch, time );
 				var pos = new Vector2( 10, 30 );
+
+				foreach( var message in _messages )
+				{
+					if( message.StartMark == null )
+						message.StartMark = time.TotalGameTime;
+					batch.DrawString( FontManager.Consolas, message.Message, message.Position, Color.LightGray );
+				}
+
+				var expired = _messages.Where( m => m.StartMark + m.LifeSpan < time.TotalGameTime ).ToList();
+				foreach( var e in expired )
+					_messages.Remove( e );
+
 				batch.Draw( SpriteManager.Dot, new Rectangle( (int) pos.X, (int) pos.Y, 130, 20 ), Color.Gray );
 				batch.DrawString( FontManager.Consolas, string.Format( "Score: {0}", Score ), pos, Color.DarkRed );
 			}
+		}
+
+		public void AddMessage( string message, Vector2 position )
+		{
+			_messages.Add( new MessageFlash { LifeSpan = new TimeSpan( 0, 0, 3 ), Message = message, Position = position } );
 		}
 
 		public void AddDrawable( IWorldDrawable drawable )

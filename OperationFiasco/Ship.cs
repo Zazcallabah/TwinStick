@@ -17,6 +17,7 @@ namespace OperationFiasco
 			: base( new Vector2(), new Vector2(), 0, new Vector2( 30, 15 ), 0 )
 		{
 			RotationSpeed = 0.1f;
+			WeaponPower = 800;
 		}
 
 		public override void Update( GameTime time )
@@ -39,7 +40,7 @@ namespace OperationFiasco
 			if( Reloading + new TimeSpan( 0, 0, 0, 0, 100 ).Ticks < DateTime.Now.Ticks )
 			{
 				var v = Rotation.PolarVector();
-				World.Instance.AddDrawable( new Bullet( new TimeSpan( 0, 0, 0, 1 ), 200, v, Position + ( v * 20 ), time ) );
+				World.Instance.AddDrawable( new Bullet( new TimeSpan( 0, 0, 0, 0, WeaponPower ), 200, v, Position + ( v * 20 ), time ) );
 				Reloading = DateTime.Now.Ticks;
 				SoundManager.Blip().Play();
 			}
@@ -55,7 +56,7 @@ namespace OperationFiasco
 				SpaceGame.Instance.End( World.Instance.Score );
 			}
 		}
-
+		public int WeaponPower { get; set; }
 		public new bool Done
 		{
 			get { return false; }
