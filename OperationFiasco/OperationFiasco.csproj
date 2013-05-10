@@ -115,6 +115,7 @@
     <Compile Include="EndScreen.cs" />
     <Compile Include="EnemyHandler.cs" />
     <Compile Include="IWorldDrawable.cs" />
+    <Compile Include="PowerupHandler.cs" />
     <Compile Include="Rnd.cs" />
     <Compile Include="Rock.cs" />
     <Compile Include="SpriteManager.cs" />

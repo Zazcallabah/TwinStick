@@ -49,10 +49,13 @@ namespace OperationFiasco
 				if( LatestRockCreationTimeStamp == null || ( _drawables.Count < 190 && LatestRockCreationTimeStamp + new TimeSpan( 0, 0, 1 ) < time.TotalGameTime ) )
 				{
 					LatestRockCreationTimeStamp = time.TotalGameTime;
-					if( Rnd.Number( 0, 4 ) > 0 )
+					var trigger = Rnd.Number( 0, 100 );
+					if( trigger < 50 )
 						EnemyHandler.AddFastRock();
-					else
+					else if( trigger < 97 )
 						EnemyHandler.AddSlowRock();
+					else
+						PowerupHandler.AddRotation();
 				}
 
 				for( var i = 0; i < _drawables.Count; i++ )

@@ -16,6 +16,7 @@ namespace OperationFiasco
 		public Ship()
 			: base( new Vector2(), new Vector2(), 0, new Vector2( 30, 15 ), 0 )
 		{
+			RotationSpeed = 0.1f;
 		}
 
 		public override void Update( GameTime time )
@@ -25,9 +26,9 @@ namespace OperationFiasco
 
 			var key = Keyboard.GetState();
 			if( key.IsKeyDown( Keys.C ) )
-				Rotation += 0.1f;
+				Rotation += RotationSpeed;
 			else if( key.IsKeyDown( Keys.X ) )
-				Rotation -= 0.1f;
+				Rotation -= RotationSpeed;
 
 			if( key.IsKeyDown( Keys.Space ) )
 				Fire( time );
@@ -49,14 +50,16 @@ namespace OperationFiasco
 				return;
 			if( worldDrawable is Rock )
 			{
+				EffectHandler.Instance.Trigger( Effect.Explosion, Position );
 				SpaceGame.Instance.End( World.Instance.Score );
 			}
-			EffectHandler.Instance.Trigger( Effect.Explosion, Position );
 		}
 
 		public new bool Done
 		{
 			get { return false; }
 		}
+
+		public float RotationSpeed { get; set; }
 	}
 }
