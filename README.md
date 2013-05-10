@@ -3,14 +3,14 @@ TwinStick
 
 POC for a shoot-em-up that uses the mouse for position input instead of the much more common direction input.
 
-Use either WSAD or XC[space] to control the ship.
+Use XC to rotate, space to fire, mouse to move.
 
 
 ----
 ideas:
-have the control scheme be upgradable.
-weave a minimal narrative.
-have some different weapons.
+* have the control scheme be upgradable.
+* weave a minimal narrative.
+* have some different weapons.
 
 start out with the mouse-oriented navigation, and some graphics. Then script sequence where the player takes a hit. Then downgrade to original asteroid (damage to screen and controls subsystems) and have the player buy component upgrades to return to the original state.
 
