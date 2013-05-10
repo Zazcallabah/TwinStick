@@ -113,6 +113,7 @@
     <Compile Include="Bullet.cs" />
     <Compile Include="EffectHandler.cs" />
     <Compile Include="EndScreen.cs" />
+    <Compile Include="EnemyHandler.cs" />
     <Compile Include="IWorldDrawable.cs" />
     <Compile Include="Rnd.cs" />
     <Compile Include="Rock.cs" />

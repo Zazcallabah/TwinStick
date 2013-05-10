@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace OperationFiasco
 {
@@ -26,7 +27,7 @@ namespace OperationFiasco
 
 		public World()
 		{
-			_drawables = new List<IWorldDrawable> { new Ship(), new Rock( 100 ) };
+			_drawables = new List<IWorldDrawable> { new Ship() };
 			_addnext = new List<IWorldDrawable>();
 			Score = 0;
 		}
@@ -40,6 +41,7 @@ namespace OperationFiasco
 		public void Update( GameTime time )
 		{
 			if( init == null )
+
 				init = time.TotalGameTime;
 			var span = time.TotalGameTime - init;
 			if( span > new TimeSpan( 0, 0, 4 ) )
@@ -47,11 +49,10 @@ namespace OperationFiasco
 				if( LatestRockCreationTimeStamp == null || ( _drawables.Count < 190 && LatestRockCreationTimeStamp + new TimeSpan( 0, 0, 1 ) < time.TotalGameTime ) )
 				{
 					LatestRockCreationTimeStamp = time.TotalGameTime;
-					var dist = Rnd.CirclePos();
-					var inv = dist * -1;
-
-					_drawables.Add( new Rock( 100, dist * 1000, inv, 25 + Rnd.Number( -3, 3 ) ) );
-
+					if( Rnd.Number( 0, 4 ) > 0 )
+						EnemyHandler.AddFastRock();
+					else
+						EnemyHandler.AddSlowRock();
 				}
 
 				for( var i = 0; i < _drawables.Count; i++ )
@@ -95,6 +96,9 @@ namespace OperationFiasco
 			{
 				var index = (int) span.Value.TotalSeconds;
 				batch.DrawString( FontManager.ConsolasHuge, _msg[index], new Vector2( 70, 50 ), _clr[index] );
+				var mp = Mouse.GetState();
+				var position = new Vector2( mp.X, mp.Y );
+				batch.Draw( SpriteManager.Dot, new Rectangle( (int) position.X, (int) position.Y, 2, 2 ), Color.Gray );
 			}
 			else
 			{
