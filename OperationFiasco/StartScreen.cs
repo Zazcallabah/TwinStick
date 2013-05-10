@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -8,8 +9,13 @@ namespace OperationFiasco
 	{
 		public void Update( GameTime time )
 		{
+			if( SoundManager.MenuMusic.State != SoundState.Playing )
+				SoundManager.MenuMusic.Play();
 			if( Keyboard.GetState().GetPressedKeys().Length > 0 )
+			{
+				SoundManager.MenuMusic.Stop();
 				SpaceGame.Instance.Reset();
+			}
 		}
 
 		Color FlashColor( GameTime time, Color first, Color second )

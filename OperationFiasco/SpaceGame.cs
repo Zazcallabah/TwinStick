@@ -25,6 +25,7 @@ namespace OperationFiasco
 		protected override void LoadContent()
 		{
 			_spriteBatch = new SpriteBatch( GraphicsDevice );
+			SoundManager.Load( Content );
 			SpriteManager.Load( Content );
 			FontManager.Load( Content );
 			_currentScreen = new StartScreen();

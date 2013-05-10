@@ -41,6 +41,7 @@ namespace OperationFiasco
 				var v = Rotation.PolarVector();
 				World.Instance.AddDrawable( new Bullet( new TimeSpan( 0, 0, 0, 1 ), 200, v, Position + ( v * 20 ), time ) );
 				Reloading = DateTime.Now.Ticks;
+				SoundManager.Blip().Play();
 			}
 		}
 

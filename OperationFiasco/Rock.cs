@@ -36,6 +36,7 @@ namespace OperationFiasco
 			if( worldDrawable is Rock )
 				return;
 			Done = true;
+			SoundManager.Explode().Play();
 			if( worldDrawable is Bullet )
 				World.Instance.Score += (int) ( ( 1.0 / _size ) * 100.0 );
 			if( _size > 30 )

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -24,7 +25,6 @@ namespace OperationFiasco
 		readonly List<IWorldDrawable> _drawables;
 		readonly List<IWorldDrawable> _addnext;
 		TimeSpan? init;
-
 		public World()
 		{
 			_drawables = new List<IWorldDrawable> { new Ship() };
@@ -37,6 +37,13 @@ namespace OperationFiasco
 		TimeSpan? LatestRockCreationTimeStamp { get; set; }
 		readonly string[] _msg = new[] { "3", "2", "1", "GO" };
 		readonly Color[] _clr = new[] { Color.Gray, Color.Gray, Color.White, Color.Red };
+		readonly PlayOnce[] _snd = new[]
+		{ 
+			new PlayOnce(SoundManager.Beep),
+			new PlayOnce(SoundManager.Beep), 
+			new PlayOnce( SoundManager.Beep),
+			new PlayOnce( SoundManager.Bip) 
+		};
 
 		public void Update( GameTime time )
 		{
@@ -98,13 +105,16 @@ namespace OperationFiasco
 			if( span < new TimeSpan( 0, 0, 4 ) )
 			{
 				var index = (int) span.Value.TotalSeconds;
-				batch.DrawString( FontManager.ConsolasHuge, _msg[index], new Vector2( 70, 50 ), _clr[index] );
+				batch.DrawString( FontManager.ConsolasHuge, _msg[index], new Vector2( 370, 200 ), _clr[index] );
 				var mp = Mouse.GetState();
 				var position = new Vector2( mp.X, mp.Y );
 				batch.Draw( SpriteManager.Dot, new Rectangle( (int) position.X, (int) position.Y, 2, 2 ), Color.Gray );
+				_snd[index].Play();
 			}
 			else
 			{
+				if( SoundManager.BackgroundMusic.State == SoundState.Stopped )
+					SoundManager.BackgroundMusic.Play();
 				foreach( var drawable in _drawables )
 					drawable.Draw( batch, time );
 				var pos = new Vector2( 10, 30 );
