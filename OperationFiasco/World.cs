@@ -55,6 +55,14 @@ namespace OperationFiasco
 			new PlayOnce( SoundManager.Bip ) 
 		};
 
+		public TimeSpan SpawnInterval()
+		{
+			var param = 1000 - Score;
+			if( param < 100 )
+				param = 100;
+			return new TimeSpan( 0, 0, 0, 0, param );
+		}
+
 		public void Update( GameTime time )
 		{
 			if( init == null )
@@ -63,13 +71,13 @@ namespace OperationFiasco
 			var span = time.TotalGameTime - init;
 			if( span > new TimeSpan( 0, 0, 4 ) )
 			{
-				if( LatestRockCreationTimeStamp == null || ( _drawables.Count < 190 && LatestRockCreationTimeStamp + new TimeSpan( 0, 0, 1 ) < time.TotalGameTime ) )
+				if( LatestRockCreationTimeStamp == null || ( _drawables.Count < 490 && LatestRockCreationTimeStamp + SpawnInterval() < time.TotalGameTime ) )
 				{
 					LatestRockCreationTimeStamp = time.TotalGameTime;
 					var trigger = Rnd.Number( 0, 100 );
 					if( trigger < 50 )
 						EnemyHandler.AddFastRock();
-					else if( trigger < 95 )
+					else if( trigger < 94 )
 						EnemyHandler.AddSlowRock();
 					else
 						PowerupHandler.AddPowerup( Score );
@@ -102,7 +110,7 @@ namespace OperationFiasco
 		bool Intersects( IWorldDrawable first, IWorldDrawable second )
 		{
 			var dist = ( first.Position - second.Position ).LengthSquared();
-			var objspan = ( first.Size + second.Size ).LengthSquared() / 4.0;
+			var objspan = ( first.Size + second.Size ).LengthSquared() / 4.8;
 
 			return dist < objspan;
 		}

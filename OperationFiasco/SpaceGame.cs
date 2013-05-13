@@ -58,7 +58,6 @@ namespace OperationFiasco
 		protected override void Draw( GameTime gameTime )
 		{
 			GraphicsDevice.Clear( Color.Black );
-
 			_spriteBatch.Begin();
 			_currentScreen.Draw( _spriteBatch, gameTime );
 			_spriteBatch.End();
