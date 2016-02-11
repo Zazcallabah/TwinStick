@@ -3,7 +3,7 @@ TwinStick
 
 POC for a shoot-em-up that uses the mouse for position input instead of the much more common direction input.
 
-[![TwinStick demo video](src-of.jpg)](http://www.youtube.com/watch?v=6wVFd00uvjo "TwinStick demo video")
+[![TwinStick demo video](scr-of.jpg)](http://www.youtube.com/watch?v=6wVFd00uvjo "TwinStick demo video")
 
 Use XC to rotate, space to fire, mouse to move.
 
